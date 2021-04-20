@@ -1,0 +1,10 @@
+.profile__activity {
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  margin: 0 auto 36px;
+  grid-area: activity;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,12 @@
+.profile {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  color: #FFFFFF;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "image"
+                       "name"
+                       "activity"
+                       "add-button";
+  position: relative;
+}

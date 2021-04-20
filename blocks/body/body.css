@@ -1,0 +1,15 @@
+.body {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  background-color: black;
+  min-width: 320px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #FFFFFF;
+}
+
+.border {
+  border: 1px solid red;
+}

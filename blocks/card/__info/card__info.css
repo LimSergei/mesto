@@ -1,0 +1,7 @@
+.card__info {
+  width: 282px;
+  height: 79px;
+  background: #FFFFFF;
+  border-radius: 0 0 10px 10px;
+  display: flex;
+}

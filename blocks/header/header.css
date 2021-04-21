@@ -3,5 +3,10 @@
   max-width: 880px;
   min-height: 55px;
   border-bottom: 1px solid #545454;
-  position: relative;
+}
+
+@media (min-width: 880px) {
+  .header {
+    min-height: 74px;
+  }
 }

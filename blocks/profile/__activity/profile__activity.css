@@ -8,3 +8,13 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+@media (min-width: 920px) {
+  .profile__activity {
+    margin: 0;
+    align-self: center;
+    justify-self: self-start;
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

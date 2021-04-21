@@ -8,4 +8,16 @@
   grid-area: name;
   white-space: nowrap;
   text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+@media (min-width: 920px) {
+  .profile__name {
+    margin: 0 18px 0 0;
+    align-self: self-end;
+    justify-self: self-start;
+    font-size: 42px;
+    line-height: 48px;
+    /* line-height: 114%; */
+  }
 }

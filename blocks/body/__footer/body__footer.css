@@ -1,0 +1,9 @@
+.body__footer {
+  margin: 48px auto 36px;
+}
+
+@media (min-width: 620px) {
+  .body__footer {
+    margin: 67px auto 60px;
+  }
+}

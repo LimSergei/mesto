@@ -1,3 +1,9 @@
 .main__profile {
   margin: 42px auto 36px;
 }
+
+@media (min-width: 620px) {
+  .main__profile {
+    margin: 40px auto 51px;
+  }
+}

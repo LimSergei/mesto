@@ -1,7 +1,9 @@
 .card__info {
-  width: 282px;
-  height: 79px;
+  max-width: 282px;
+  min-height: 79px;
   background: #FFFFFF;
-  border-radius: 0 0 10px 10px;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0 0 10px 10px;
 }

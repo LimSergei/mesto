@@ -3,12 +3,13 @@
   font-style: normal;
   color: #FFFFFF;
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-areas: "image"
-                       "name"
-                       "activity"
-                       "add-button";
-  position: relative;
+  grid-template-columns: max-content 37px;
+  grid-template-areas: "image image"
+                       "name edit-button"
+                       "activity activity"
+                       "add-button add-button";
+  justify-content: center;
+  column-gap: 17px;
 }
 
 @media (min-width: 920px) {
@@ -17,7 +18,6 @@
     grid-template-rows: 1fr 1fr;
     grid-template-areas: "image name edit-button add-button"
                           "image activity . add-button";
-    position: static;
+                          column-gap: 0;
   }
-
 }

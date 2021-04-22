@@ -1,0 +1,12 @@
+.popup__form {
+  margin: 75px auto 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (min-width: 920px) {
+  .popup__form {
+    margin: 54px auto 0;
+  }
+}

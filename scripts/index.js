@@ -8,21 +8,25 @@ let formElement = document.querySelector('.popup__form');
 let nameInput = document.querySelector('.popup__input_type_name');
 let jobInput = document.querySelector('.popup__input_type_activity');
 
-function togglePopup() {
+function toggleOpenPopup() {
   popup.classList.toggle('popup_opened');
   nameInput.value = profileName.textContent;
   jobInput.value = profileActivity.textContent;
+}
+
+function toggleClosePopup() {
+  popup.classList.toggle('popup_opened');
 }
 
 function formSubmitHandler (evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileActivity.textContent = jobInput.value;
-  togglePopup();
+  toggleClosePopup();
 }
 
-openPopupButton.addEventListener('click', togglePopup);
-closePopupButton.addEventListener('click', togglePopup);
+openPopupButton.addEventListener('click', toggleOpenPopup);
+closePopupButton.addEventListener('click', toggleClosePopup);
 formElement.addEventListener('submit', formSubmitHandler);
 
 

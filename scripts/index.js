@@ -5,8 +5,8 @@ const closePopupButton = document.querySelector('.popup__close-button');
 let profileName = document.querySelector('.profile__name');
 let profileActivity = document.querySelector('.profile__activity');
 let formElement = document.querySelector('.popup__form');
-let nameInput = document.querySelector('.popup__input_name');
-let jobInput = document.querySelector('.popup__input_activity');
+let nameInput = document.querySelector('.popup__input_type_name');
+let jobInput = document.querySelector('.popup__input_type_activity');
 
 function togglePopup() {
   popup.classList.toggle('popup_opened');

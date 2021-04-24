@@ -21,7 +21,6 @@
 @media (min-width: 920px) {
   .profile__edit-button {
     position: static;
-    align-self: self-end;
     width: 24px;
     height: 24px;
     margin-bottom: 10px;

@@ -2,6 +2,7 @@
   width: 103.74px;
   height: 24.4px;
   padding-left: 27px;
+  padding-bottom: 31.6px;
 }
 
 @media (min-width: 880px) {
@@ -9,5 +10,6 @@
     width: 142px;
     height: 33px;
     padding-left: 0px;
+    padding-bottom: 41px;
   }
 }

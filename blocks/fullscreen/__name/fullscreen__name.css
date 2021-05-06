@@ -1,0 +1,12 @@
+.fullscreen__name {
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FFFFFF;
+  margin: 10px 0 0 0;
+  display: block;
+  max-width: 100%;
+  overflow-wrap: normal;
+}

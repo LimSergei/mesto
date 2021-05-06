@@ -23,62 +23,14 @@
         </button>
       </section>
 
-      <section class="cards">
-        <article class="card">
-          <img src="./images/Карачаевск.jpg" alt="Карачаевск" class="card__image">
-          <div class="card__info">
-            <h2 class="card__title">Карачаевск</h2>
-            <button class="card__like" type="button" aria-label="лайк"></button>
-          </div>
-        </article>
-
-        <article class="card">
-          <img src="./images/Эльбрус.jpg" alt="Эльбрус" class="card__image">
-          <div class="card__info">
-            <h2 class="card__title">Гора Эльбрус</h2>
-            <button class="card__like" type="button" aria-label="лайк"></button>
-          </div>
-        </article>
-
-        <article class="card">
-          <img src="./images/Домбай.jpg" alt="Домбай" class="card__image">
-          <div class="card__info">
-            <h2 class="card__title">Домбай</h2>
-            <button class="card__like" type="button" aria-label="лайк"></button>
-          </div>
-        </article>
-
-        <article class="card">
-          <img src="./images/Эльбрус.jpg" alt="Эльбрус" class="card__image">
-          <div class="card__info">
-            <h2 class="card__title">Гора Эльбрус</h2>
-            <button class="card__like" type="button" aria-label="лайк"></button>
-          </div>
-        </article>
-
-        <article class="card">
-          <img src="./images/Домбай.jpg" alt="Домбай" class="card__image">
-          <div class="card__info">
-            <h2 class="card__title">Домбай</h2>
-            <button class="card__like" type="button" aria-label="лайк"></button>
-          </div>
-        </article>
-
-        <article class="card">
-          <img src="./images/Карачаевск.jpg" alt="Карачаевск" class="card__image">
-          <div class="card__info">
-            <h2 class="card__title">Карачаево-Черкесская республика</h2>
-            <button class="card__like" type="button" aria-label="лайк"></button>
-          </div>
-        </article>
-      </section>
+      <section class="cards"></section>
     </main>
 
     <footer class="body__footer footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
 
-    <div class="popup popup_opened">
+    <div class="popup popup_closed popup_profile">
       <div class="popup__container">
         <button class="popup__close-button" type="button" aria-label="закрыть окно"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
@@ -90,6 +42,36 @@
       </div>
     </div>
 
+    <div class="popup popup_closed popup_card">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button" aria-label="закрыть окно"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form action="#" class="popup__form" name="information">
+          <input type="text" id="place-name" placeholder="Название" class="popup__input popup__input_type_name" name="placename" value="">
+          <input type="text" id="place-link" placeholder="Ссылка на картинку" class="popup__input popup__input_type_activity" name="placelink" value="">
+          <button class="popup__save-button" type="submit">Создать</button>
+        </form>
+      </div>
+    </div>
+
+    <section class="popup popup_closed popup_fullscreen">
+      <div class="fullscreen">
+        <button class="fullscreen__close-button" type="button" aria-label="закрыть окно"></button>
+        <img src="" alt="" class="fullscreen__image">
+        <p class="fullscreen__name">photoname</p>
+      </div>
+    </section>
+
+    <template id="card-template">
+      <article class="card">
+        <img src="" alt="" class="card__image">
+        <div class="card__info">
+          <h2 class="card__title"></h2>
+          <button class="card__like" type="button" aria-label="лайк"></button>
+        </div>
+        <button class="card__trash" type="button" aria-label="удалить"></button>
+      </article>
+    </template>
     <script src="./scripts/index.js"></script>
 </body>
 </html>

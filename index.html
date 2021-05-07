@@ -34,9 +34,9 @@
       <div class="popup__container">
         <button class="popup__close-button" type="button" aria-label="закрыть окно"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form action="#" class="popup__form" name="information">
-          <input type="text" id="name" value="" class="popup__input popup__input_type_name" name="fullname">
-          <input type="text" id="activity" value="" class="popup__input popup__input_type_activity" name="activity">
+        <form action="#" class="popup__form" name="profile-information">
+          <input type="text" id="name" value="" class="popup__input popup__input_type_name" name="fullname" placeholder="Имя" required>
+          <input type="text" id="activity" value="" class="popup__input popup__input_type_activity" name="activity" placeholder="Профессия" required>
           <button class="popup__save-button" type="submit">Сохранить</button>
         </form>
       </div>
@@ -46,9 +46,9 @@
       <div class="popup__container">
         <button class="popup__close-button" type="button" aria-label="закрыть окно"></button>
         <h2 class="popup__title">Новое место</h2>
-        <form action="#" class="popup__form" name="information">
-          <input type="text" id="place-name" placeholder="Название" class="popup__input popup__input_type_name" name="placename" value="">
-          <input type="text" id="place-link" placeholder="Ссылка на картинку" class="popup__input popup__input_type_activity" name="placelink" value="">
+        <form action="#" class="popup__form" name="place-information">
+          <input type="text" id="place-name" placeholder="Название" class="popup__input popup__input_type_name" name="placename" value="" required>
+          <input type="url" id="place-link" placeholder="Ссылка на картинку" class="popup__input popup__input_type_activity" name="placelink" value="" required>
           <button class="popup__save-button" type="submit">Создать</button>
         </form>
       </div>
@@ -56,7 +56,7 @@
 
     <section class="popup popup_closed popup_fullscreen">
       <div class="fullscreen">
-        <button class="fullscreen__close-button" type="button" aria-label="закрыть окно"></button>
+        <button class="popup__close-button" type="button" aria-label="закрыть окно"></button>
         <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg" alt="изображение" class="fullscreen__image">
         <p class="fullscreen__name">photoname</p>
       </div>
@@ -72,6 +72,7 @@
         <button class="card__trash" type="button" aria-label="удалить"></button>
       </article>
     </template>
+    <script src="./scripts/initial-cards.js"></script>
     <script src="./scripts/index.js"></script>
 </body>
 </html>

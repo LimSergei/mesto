@@ -15,7 +15,7 @@
 
 @media (min-width: 920px) {
   .profile__name {
-    max-width: 100%;
+    max-width: 300px;
     margin: 0 18px 0 0;
     align-self: self-end;
     justify-self: self-start;

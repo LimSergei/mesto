@@ -1,0 +1,12 @@
+.popup__input-error_active {
+  font-size: 12px;
+  line-height: 15px;
+  color: #FF0000;
+  width: 238px;
+}
+
+@media (min-width: 920px) {
+  .popup__input-error_active {
+    width: 358px;
+  }
+}

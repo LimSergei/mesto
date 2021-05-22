@@ -1,6 +1,5 @@
 const profilePopup = document.querySelector('.popup_profile');
 const editButton = document.querySelector('.profile__edit-button');
-const profileSubmit = profilePopup.querySelector('.popup__save-button');
 const profileCloseButton = profilePopup.querySelector('.popup__close-button');
 const profileForm = profilePopup.querySelector('.popup__form');
 const nameInput = profilePopup.querySelector('.popup__input_type_name');
@@ -21,14 +20,33 @@ const newCardLink = cardForm.querySelector('.popup__input_type_activity');
 const cardLink = document.querySelector('.fullscreen__image');
 const cardName = document.querySelector('.fullscreen__name');
 
+
 // Открытие попапов
 function openPopup(popup) {
-  popup.classList.remove('popup_closed');
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupEsc);
 }
+
+// Закрытие попапов по клавише Esc
+function closePopupEsc(evt) {
+  if (evt.key === "Escape") {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
+}
+
+// Закрытие попапов по оверлею
+window.addEventListener('click', (evt) => {
+  const popupOpened = document.querySelector('.popup_opened');
+  if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup_opened')) {
+    closePopup(popupOpened);
+  }
+})
+
 
 // Закрытие попапов
 function closePopup(popup) {
-  popup.classList.add('popup_closed');
+  popup.classList.remove('popup_opened');
 }
 
 // Открытие попапа профиля
@@ -50,6 +68,11 @@ function editProfileData(evt) {
 function closeProfilePopup() {
   closePopup(profilePopup);
   profileForm.reset();
+}
+
+// Открытие попапа добавления новой карточки + скрытие ошибок формы
+function openAddPopup() {
+  openPopup(cardPopup);
 }
 
 // Закрытие попапа добавления новой карточки
@@ -108,7 +131,7 @@ function addNewCard(event) {
   editButton.addEventListener('click', openProfilePopup);
   profileForm.addEventListener('submit', editProfileData);
   profileCloseButton.addEventListener('click', closeProfilePopup);
-  cardButton.addEventListener('click', ()=> openPopup(cardPopup));
+  cardButton.addEventListener('click', openAddPopup);
   cardForm.addEventListener('submit', addNewCard);
   cardCloseButton.addEventListener('click', closeCardPopup);
   imgCloseButton.addEventListener('click',()=> closePopup(imgPopup));

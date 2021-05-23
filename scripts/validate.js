@@ -1,3 +1,12 @@
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__form-button',
+  inactiveButtonClass: 'popup__form-submit_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active',
+};
+
 const showInputError = (formElement, inputElement, errorMessage, config) => {
   const { inputErrorClass, errorClass } = config;
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -59,11 +68,4 @@ const toggleButtonState = (inputList, buttonElement) => {
   };
 };
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__form-button',
-  inactiveButtonClass: 'popup__form-submit_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active',
-});
+enableValidation(config);

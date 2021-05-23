@@ -20,7 +20,6 @@ const newCardLink = cardForm.querySelector('.popup__input_type_activity');
 const cardLink = document.querySelector('.fullscreen__image');
 const cardName = document.querySelector('.fullscreen__name');
 
-
 // Открытие попапов
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -36,17 +35,17 @@ function closePopupEsc(evt) {
 }
 
 // Закрытие попапов по оверлею
-window.addEventListener('click', (evt) => {
+window.addEventListener('mousedown', (evt) => {
   const popupOpened = document.querySelector('.popup_opened');
   if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup_opened')) {
     closePopup(popupOpened);
   }
 })
 
-
 // Закрытие попапов
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupEsc);
 }
 
 // Открытие попапа профиля
@@ -77,8 +76,10 @@ function openAddPopup() {
 
 // Закрытие попапа добавления новой карточки
 function closeCardPopup() {
+  const formButton = cardForm.querySelector('.popup__form-button');
   closePopup(cardPopup);
   cardForm.reset();
+  formButton.disabled = true;
 }
 
 // Поставить лайк

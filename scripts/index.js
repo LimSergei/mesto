@@ -1,3 +1,5 @@
+import Card from './Card.js';
+
 const profilePopup = document.querySelector('.popup_profile');
 const editButton = document.querySelector('.profile__edit-button');
 const profileCloseButton = profilePopup.querySelector('.popup__close-button');
@@ -10,18 +12,16 @@ const cardPopup = document.querySelector('.popup_card');
 const cardButton = document.querySelector('.profile__add-button');
 const cardCloseButton = cardPopup.querySelector('.popup__close-button');
 const cardForm = cardPopup.querySelector('.popup__form');
-const cardTemplate = document.querySelector('#card-template');
 const cardsContainer = document.querySelector('.cards');
 const imgPopup = document.querySelector('.popup_fullscreen');
 const img = document.querySelector('.fullscreen');
 const imgCloseButton = img.querySelector('.popup__close-button');
 const newCardName = cardForm.querySelector('.popup__input_type_name');
 const newCardLink = cardForm.querySelector('.popup__input_type_activity');
-const cardLink = document.querySelector('.fullscreen__image');
-const cardName = document.querySelector('.fullscreen__name');
+
 
 // Открытие попапов
-function openPopup(popup) {
+export default function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupEsc);
 }
@@ -69,11 +69,6 @@ function closeProfilePopup() {
   profileForm.reset();
 }
 
-// Открытие попапа добавления новой карточки + скрытие ошибок формы
-function openAddPopup() {
-  openPopup(cardPopup);
-}
-
 // Закрытие попапа добавления новой карточки
 function closeCardPopup() {
   const formButton = cardForm.querySelector('.popup__form-button');
@@ -82,41 +77,11 @@ function closeCardPopup() {
   formButton.disabled = true;
 }
 
-// Поставить лайк
-function likeCard(event) {
-  event.target.classList.toggle('card__like_active');
-}
-
-// Удалить карточку
-function deleteCard(event) {
-  event.target.closest('.card').remove();
-}
-
-// Открытие попапа картинки
-function openImgPopup({ name, link }) {
-  cardName.textContent = name;
-  cardLink.src = link;
-  cardLink.alt = name;
-  openPopup(imgPopup);
-}
-
-// Формирование карточки + лайк + удаление
-function createCard(element) {
-  const cardElement = cardTemplate.content.cloneNode(true);
-  const cardElementImg = cardElement.querySelector('.card__image');
-  cardElementImg.src = element.link;
-  cardElement.querySelector('.card__title').textContent = element.name;
-  cardElementImg.alt = element.name;
-  cardElement.querySelector('.card__like').addEventListener('click', likeCard);
-  cardElement.querySelector('.card__trash').addEventListener('click', deleteCard);
-  cardElementImg.addEventListener('click', ()=> openImgPopup({ name: element.name,link: element.link }));
-  return cardElement;
-}
-
-// Создание дефолтных карточек
-initialCards.forEach(function(cardItem) {
-  const newCard = createCard(cardItem);
-  cardsContainer.append(newCard);
+// Добавление карточки в DOM
+initialCards.forEach((objItem) => {
+  const newCard = new Card(objItem, '#card-template');
+  const cardElement = newCard.generateCard();
+  cardsContainer.append(cardElement);
 });
 
 //Создание новой карточки
@@ -124,16 +89,16 @@ function addNewCard(event) {
   event.preventDefault();
   const inputName = newCardName.value;
   const inputLink = newCardLink.value;
-  const newCard = createCard({ name: inputName, link: inputLink});
-  cardsContainer.prepend(newCard);
+  const newCard = new Card({ name: inputName, link: inputLink}, '#card-template');
+  const newCardItem = newCard.generateCard();
+  cardsContainer.prepend(newCardItem);
   closeCardPopup();
 }
 
   editButton.addEventListener('click', openProfilePopup);
   profileForm.addEventListener('submit', editProfileData);
   profileCloseButton.addEventListener('click', closeProfilePopup);
-  cardButton.addEventListener('click', openAddPopup);
+  cardButton.addEventListener('click', () => openPopup(cardPopup));
   cardForm.addEventListener('submit', addNewCard);
   cardCloseButton.addEventListener('click', closeCardPopup);
   imgCloseButton.addEventListener('click',()=> closePopup(imgPopup));
-

@@ -1,4 +1,5 @@
 import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 
 const profilePopup = document.querySelector('.popup_profile');
 const editButton = document.querySelector('.profile__edit-button');
@@ -18,7 +19,6 @@ const img = document.querySelector('.fullscreen');
 const imgCloseButton = img.querySelector('.popup__close-button');
 const newCardName = cardForm.querySelector('.popup__input_type_name');
 const newCardLink = cardForm.querySelector('.popup__input_type_activity');
-
 
 // Открытие попапов
 export default function openPopup(popup) {
@@ -44,7 +44,11 @@ window.addEventListener('mousedown', (evt) => {
 
 // Закрытие попапов
 function closePopup(popup) {
+  const popupFormElement = popup.querySelector('.popup__form');
+  const formButton = popup.querySelector('.popup__form-button');
   popup.classList.remove('popup_opened');
+  popupFormElement.reset();
+  formButton.disabled = true;
   document.removeEventListener('keydown', closePopupEsc);
 }
 
@@ -63,20 +67,6 @@ function editProfileData(evt) {
   closePopup(profilePopup);
 }
 
-// Закрытие профиля
-function closeProfilePopup() {
-  closePopup(profilePopup);
-  profileForm.reset();
-}
-
-// Закрытие попапа добавления новой карточки
-function closeCardPopup() {
-  const formButton = cardForm.querySelector('.popup__form-button');
-  closePopup(cardPopup);
-  cardForm.reset();
-  formButton.disabled = true;
-}
-
 // Добавление карточки в DOM
 initialCards.forEach((objItem) => {
   const newCard = new Card(objItem, '#card-template');
@@ -92,13 +82,13 @@ function addNewCard(event) {
   const newCard = new Card({ name: inputName, link: inputLink}, '#card-template');
   const newCardItem = newCard.generateCard();
   cardsContainer.prepend(newCardItem);
-  closeCardPopup();
+  closePopup(cardPopup);
 }
 
   editButton.addEventListener('click', openProfilePopup);
   profileForm.addEventListener('submit', editProfileData);
-  profileCloseButton.addEventListener('click', closeProfilePopup);
+  profileCloseButton.addEventListener('click', () => closePopup(profilePopup));
   cardButton.addEventListener('click', () => openPopup(cardPopup));
   cardForm.addEventListener('submit', addNewCard);
-  cardCloseButton.addEventListener('click', closeCardPopup);
+  cardCloseButton.addEventListener('click', () => closePopup(cardPopup));
   imgCloseButton.addEventListener('click',()=> closePopup(imgPopup));

@@ -7,8 +7,6 @@ const config = {
   errorClass: 'popup__input-error_active',
 }
 
-const formList = Array.from(document.querySelectorAll(config.formSelector));
-
 class FormValidator {
   constructor (formElement, config) {
     this._formSelector = config.formSelector;
@@ -73,11 +71,6 @@ class FormValidator {
   }
 }
 
-formList.forEach((formElement) => {
-    const validFormItem = new FormValidator(formElement, config);
-    validFormItem.enableValidation();
-});
-
-export default FormValidator
+export { FormValidator, config }
 
 

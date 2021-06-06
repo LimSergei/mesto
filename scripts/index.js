@@ -1,5 +1,5 @@
 import Card from './Card.js';
-import FormValidator from './FormValidator.js';
+import { FormValidator, config } from './FormValidator.js';
 
 const profilePopup = document.querySelector('.popup_profile');
 const editButton = document.querySelector('.profile__edit-button');
@@ -19,6 +19,8 @@ const img = document.querySelector('.fullscreen');
 const imgCloseButton = img.querySelector('.popup__close-button');
 const newCardName = cardForm.querySelector('.popup__input_type_name');
 const newCardLink = cardForm.querySelector('.popup__input_type_activity');
+const formList = Array.from(document.querySelectorAll(config.formSelector));
+
 
 // Открытие попапов
 export default function openPopup(popup) {
@@ -84,6 +86,12 @@ function addNewCard(event) {
   cardsContainer.prepend(newCardItem);
   closePopup(cardPopup);
 }
+
+//Проверка формы на валидность
+formList.forEach((formElement) => {
+  const validFormItem = new FormValidator(formElement, config);
+  validFormItem.enableValidation();
+});
 
   editButton.addEventListener('click', openProfilePopup);
   profileForm.addEventListener('submit', editProfileData);

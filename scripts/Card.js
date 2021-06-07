@@ -1,28 +1,24 @@
 export default class Card {
-  constructor(data, cardSelector, openPopup) {
-    this._name = data.name;
-    this._link = data.link;
-    this._cardSelector = cardSelector;
-    this._openPopup = openPopup;
+  constructor(name, link, templateSelector, openImgPopup) {
+    this._name = name;
+    this._link = link;
+    this._templateElement = templateSelector.querySelector('.card').cloneNode(true);
+    this._openImgPopup = openImgPopup;
   }
 
-  // Создание html сущности
-  _getTemplate = () => {
-    const cardItem = document
-    .querySelector(this._cardSelector)
-    .content
-    .querySelector('.card')
-    .cloneNode(true);
-
-    return cardItem
-  }
-
-  //Генерация карточки
+  //Генерация карточки + навешивание слушателей
   generateCard = () => {
-    this._card = this._getTemplate();
-    this._addListeners();
-    this._card.querySelector('.card__image').src = this._link;
-    this._card.querySelector('.card__image').alt = this._name;
+    this._card = this._templateElement;
+    const cardImg = this._card.querySelector('.card__image');
+    const cardLike = this._card.querySelector('.card__like');
+    const cardDeleteButton = this._card.querySelector('.card__trash');
+
+    cardImg.addEventListener('click', () => this._openImgPopup(this._name, this._link));
+    cardLike.addEventListener('click', () => this._likeCard());
+    cardDeleteButton.addEventListener('click', () => this._deleteCard());
+
+    cardImg.src = this._link;
+    cardImg.alt = this._name;
     this._card.querySelector('.card__title').textContent = this._name;
 
     return this._card
@@ -37,23 +33,5 @@ export default class Card {
   // Удалить карточку
   _deleteCard() {
     this._card.remove();
-  }
-
-  //Открытие попапа картинки
-  _openImgPopup() {
-    const imgItem = document.querySelector('.popup_fullscreen');
-    const cardLink = document.querySelector('.fullscreen__image');
-    const cardName = document.querySelector('.fullscreen__name');
-    cardName.textContent = this._name;
-    cardLink.src = this._link;
-    cardLink.alt = this._name;
-    this._openPopup(imgItem);
-  }
-
-  //Навешивание слушателей
-  _addListeners() {
-    this._card.querySelector('.card__image').addEventListener('click', () => this._openImgPopup());
-    this._card.querySelector('.card__like').addEventListener('click', () => this._likeCard());
-    this._card.querySelector('.card__trash').addEventListener('click', () => this._deleteCard());
   }
 }

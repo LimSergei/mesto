@@ -15,11 +15,13 @@ const cardCloseButton = cardPopup.querySelector('.popup__close-button');
 const cardForm = cardPopup.querySelector('.popup__form');
 const cardsContainer = document.querySelector('.cards');
 const imgPopup = document.querySelector('.popup_fullscreen');
+const cardLink = document.querySelector('.fullscreen__image');
+const cardName = document.querySelector('.fullscreen__name');
 const img = document.querySelector('.fullscreen');
 const imgCloseButton = img.querySelector('.popup__close-button');
 const newCardName = cardForm.querySelector('.popup__input_type_name');
 const newCardLink = cardForm.querySelector('.popup__input_type_activity');
-
+const templateSelector = document.querySelector('#card-template').content;
 
 const forms = [
     {
@@ -64,9 +66,9 @@ function closePopup(popup) {
 
 // Открытие попапа профиля
 function openProfilePopup() {
+  formObject['profileForm'].cleanFormError();
   nameInput.value = profileName.textContent;
   jobInput.value = profileActivity.textContent;
-  formObject['profileForm'].cleanFormError();
   openPopup(profilePopup);
 }
 
@@ -76,6 +78,14 @@ function openAddPopup() {
   openPopup(cardPopup)
 }
 
+// Открытие попапа картинки
+const openImgPopup = ((name, link) => {
+  cardName.textContent = name;
+  cardLink.src = link;
+  cardLink.alt = name;
+  openPopup(imgPopup);
+});
+
 // Редактирование профиля
 function editProfileData(evt) {
   evt.preventDefault();
@@ -84,23 +94,24 @@ function editProfileData(evt) {
   closePopup(profilePopup);
 }
 
+//Создание новой карточки
+const createCard = (name, link) => {
+  const newCard = new Card(name, link, templateSelector, openImgPopup);
+  return newCard.generateCard();
+}
+
 // Добавление карточки в DOM
-initialCards.forEach((objItem) => {
-  const newCard = new Card(objItem, '#card-template', openPopup);
-  const cardElement = newCard.generateCard();
-  cardsContainer.append(cardElement);
+initialCards.forEach((card) => {
+  cardsContainer.append(createCard(card.name, card.link));
 })
 
-//Создание новой карточки
+//Добавление новой карточки
 function addNewCard(event) {
   event.preventDefault();
   const inputName = newCardName.value;
   const inputLink = newCardLink.value;
-  const newCard = new Card({ name: inputName, link: inputLink}, '#card-template');
-  const newCardItem = newCard.generateCard();
-  cardsContainer.prepend(newCardItem);
+  cardsContainer.prepend(createCard(inputName, inputLink));
   closePopup(cardPopup);
-
 }
 
 //Валидация форм
@@ -109,6 +120,7 @@ forms.forEach(element =>{
   formObject[element.name].enableValidation();
 })
 
+
   editButton.addEventListener('click', openProfilePopup);
   profileForm.addEventListener('submit', editProfileData);
   profileCloseButton.addEventListener('click', () => closePopup(profilePopup));
@@ -116,3 +128,5 @@ forms.forEach(element =>{
   cardForm.addEventListener('submit', addNewCard);
   cardCloseButton.addEventListener('click', () => closePopup(cardPopup));
   imgCloseButton.addEventListener('click',()=> closePopup(imgPopup));
+
+  export { cardLink, cardName, imgPopup }

@@ -17,7 +17,7 @@ class FormValidator {
     this._errorClass = config.errorClass;
     this._formElement = formElement;
     this._inputList = Array.from(this._formElement.querySelectorAll(config.inputSelector));
-    this._buttonElement = this._formElement.querySelector('.popup__form-button');
+    this._buttonElement = this._formElement.querySelector(config.submitButtonSelector);
   }
 
   _showInputError = (inputElement, errorMessage) => {

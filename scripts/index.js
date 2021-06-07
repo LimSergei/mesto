@@ -19,11 +19,23 @@ const img = document.querySelector('.fullscreen');
 const imgCloseButton = img.querySelector('.popup__close-button');
 const newCardName = cardForm.querySelector('.popup__input_type_name');
 const newCardLink = cardForm.querySelector('.popup__input_type_activity');
-const formList = Array.from(document.querySelectorAll(config.formSelector));
 
+
+const forms = [
+    {
+      name: 'profileForm',
+      form: profileForm
+  },
+    {
+      name: 'createCardForm',
+      form: cardForm
+  }
+]
+
+const formObject = {};
 
 // Открытие попапов
-export default function openPopup(popup) {
+function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupEsc);
 }
@@ -46,11 +58,7 @@ window.addEventListener('mousedown', (evt) => {
 
 // Закрытие попапов
 function closePopup(popup) {
-  const popupFormElement = popup.querySelector('.popup__form');
-  const formButton = popup.querySelector('.popup__form-button');
   popup.classList.remove('popup_opened');
-  popupFormElement.reset();
-  formButton.disabled = true;
   document.removeEventListener('keydown', closePopupEsc);
 }
 
@@ -58,7 +66,14 @@ function closePopup(popup) {
 function openProfilePopup() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileActivity.textContent;
+  formObject['profileForm'].cleanFormError();
   openPopup(profilePopup);
+}
+
+//Открытие попапа добавления карточки
+function openAddPopup() {
+  formObject['createCardForm'].cleanFormError();
+  openPopup(cardPopup)
 }
 
 // Редактирование профиля
@@ -71,10 +86,10 @@ function editProfileData(evt) {
 
 // Добавление карточки в DOM
 initialCards.forEach((objItem) => {
-  const newCard = new Card(objItem, '#card-template');
+  const newCard = new Card(objItem, '#card-template', openPopup);
   const cardElement = newCard.generateCard();
   cardsContainer.append(cardElement);
-});
+})
 
 //Создание новой карточки
 function addNewCard(event) {
@@ -85,18 +100,19 @@ function addNewCard(event) {
   const newCardItem = newCard.generateCard();
   cardsContainer.prepend(newCardItem);
   closePopup(cardPopup);
+
 }
 
-//Проверка формы на валидность
-formList.forEach((formElement) => {
-  const validFormItem = new FormValidator(formElement, config);
-  validFormItem.enableValidation();
-});
+//Валидация форм
+forms.forEach(element =>{
+  formObject[element.name] = new FormValidator(element.form, config)
+  formObject[element.name].enableValidation();
+})
 
   editButton.addEventListener('click', openProfilePopup);
   profileForm.addEventListener('submit', editProfileData);
   profileCloseButton.addEventListener('click', () => closePopup(profilePopup));
-  cardButton.addEventListener('click', () => openPopup(cardPopup));
+  cardButton.addEventListener('click', () => openAddPopup());
   cardForm.addEventListener('submit', addNewCard);
   cardCloseButton.addEventListener('click', () => closePopup(cardPopup));
   imgCloseButton.addEventListener('click',()=> closePopup(imgPopup));

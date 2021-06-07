@@ -1,10 +1,9 @@
-import openPopup from './index.js'
-
-class Card {
-  constructor(data, cardSelector) {
+export default class Card {
+  constructor(data, cardSelector, openPopup) {
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
+    this._openPopup = openPopup;
   }
 
   // Создание html сущности
@@ -48,7 +47,7 @@ class Card {
     cardName.textContent = this._name;
     cardLink.src = this._link;
     cardLink.alt = this._name;
-    openPopup(imgItem);
+    this._openPopup(imgItem);
   }
 
   //Навешивание слушателей
@@ -58,5 +57,3 @@ class Card {
     this._card.querySelector('.card__trash').addEventListener('click', () => this._deleteCard());
   }
 }
-
-export default Card

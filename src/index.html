@@ -5,17 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Место</title>
-    <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="body">
 
     <header class="body__header header">
-      <img src="./images/logo.svg" alt="логотип" class="header__logo">
+      <img src="<%=require('./images/logo.svg')%>" alt="логотип" class="header__logo">
     </header>
 
     <main class="main">
       <section class="main__profile profile">
-        <img src="./images/image.jpg" alt="Жак-Ив Кусто" class="profile__image">
+        <img src="<%=require('./images/image.jpg')%>" alt="Жак-Ив Кусто" class="profile__image">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
         <p class="profile__activity">Исследователь океана</p>
         <button class="profile__edit-button" type="button" aria-label="редактировать информацию о себе"></button>
@@ -69,14 +68,14 @@
     <section class="popup popup_fullscreen">
       <div class="fullscreen">
         <button class="popup__close-button" type="button" aria-label="закрыть окно"></button>
-        <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg" alt="изображение" class="fullscreen__image">
+        <img src="#" alt="изображение" class="fullscreen__image">
         <p class="fullscreen__name">photoname</p>
       </div>
     </section>
 
     <template id="card-template">
       <article class="card">
-        <img src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg" alt="изображение" class="card__image">
+        <img src="#" alt="изображение" class="card__image">
         <div class="card__info">
           <h2 class="card__title"></h2>
           <button class="card__like" type="button" aria-label="лайк"></button>
@@ -84,16 +83,5 @@
         <button class="card__trash" type="button" aria-label="удалить"></button>
       </article>
     </template>
-
-    <script type="module" src="./scripts/utils/constants.js"></script>
-    <script type="module" src="./scripts/components/Card.js"></script>
-    <script type="module" src="./scripts/components/FormValidator.js"></script>
-    <script type="module" src="./scripts/components/Popup.js"></script>
-    <script type="module" src="./scripts/components/PopupWithForm.js"></script>
-    <script type="module" src="./scripts/components/PopupWithImage.js"></script>
-    <script type="module" src="./scripts/components/Section.js"></script>
-    <script type="module" src="./scripts/components/UserInfo.js"></script>
-    <script type="module" src="./scripts/index.js"></script>
-
 </body>
 </html>

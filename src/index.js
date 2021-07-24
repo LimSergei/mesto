@@ -1,7 +1,8 @@
 import './pages/index.css';
 import Card from './scripts/components/Card.js';
-import { FormValidator, config } from './scripts/components/FormValidator.js';
+import FormValidator from './scripts/components/FormValidator.js';
 import { initialCards,
+  config,
   cardPopup,
   cardButton,
   cardsContainer,
@@ -12,20 +13,23 @@ import { initialCards,
   profilePopup,
   profileName,
   profileActivity,
-  editButton } from './scripts/utils/constants.js';
+  editButton,
+  profileNameInput,
+  profileActivityInput,
+  } from './scripts/utils/constants.js';
 import Section from './scripts/components/Section.js';
 import PopupWithImage from './scripts/components/PopupWithImage.js';
 import PopupWithForm from './scripts/components/PopupWithForm.js';
 import UserInfo from './scripts/components/UserInfo.js';
 
+//Экземпляр открытия попапа картинки
+const popupWithImage = new PopupWithImage (imgPopup);
 
 //Функция создания новой карточки + добавления в контейнер
 const createCard = (data) => {
   const card = new Card (data.name, data.link, templateSelector,
     {handleCardClick: () => {
-      const popupWithImage = new PopupWithImage (imgPopup);
       popupWithImage.open(data.name, data.link);
-      popupWithImage.setEventListeners();
       }
     }
   )
@@ -76,12 +80,15 @@ const popupEditProfile = new PopupWithForm (profilePopup, {
 
 //Функция открытия попапа редактирования профиля
 const openEditProfilePopup = () => {
-  userInfo.getUserInfo();
+  const profileInfo = userInfo.getUserInfo();
+  profileNameInput.value = profileInfo.name;
+  profileActivityInput.value = profileInfo.activity;
   popupEditProfile.open();
 }
 
 popupEditProfile.setEventListeners();
 popupAddForm.setEventListeners();
+popupWithImage.setEventListeners();
 
 editButton.addEventListener('click', openEditProfilePopup);
 cardButton.addEventListener('click', openAddPopup);

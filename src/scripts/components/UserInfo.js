@@ -1,9 +1,6 @@
 export default class UserInfo {
   #profileName;
   #profileActivity;
-  #formEditProfile;
-  #nameInput;
-  #activityInput;
 
   constructor({profileName, profileActivity}) {
     this.#profileName = profileName;
@@ -11,12 +8,10 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    this.#formEditProfile = document.querySelector('.popup__form');
-    this.#nameInput = this.#formEditProfile.querySelector('#profile-name')
-    this.#activityInput = this.#formEditProfile.querySelector('#profile-activity')
-
-    this.#nameInput.value = this.#profileName.textContent;
-    this.#activityInput.value = this.#profileActivity.textContent;
+    return {
+      name: this.#profileName.textContent,
+      activity: this.#profileActivity.textContent,
+    }
   }
 
   setUserInfo(element) {

@@ -1,17 +1,20 @@
+import { escKey } from "../utils/constants";
+
 export default class Popup {
-  #popupSelector;
+  _popupSelector;
 
   constructor(popupSelector) {
-    this.#popupSelector = popupSelector;
+    this._popupSelector = popupSelector;
+    this._handleEscClose = this._handleEscClose.bind(this);
   }
 
-  #handleEscClose(evt) {
-    if (evt.key === "Escape") {
+  _handleEscClose(evt) {
+    if (evt.key === escKey) {
       this.close();
     }
   }
 
-  #handleOverlayClose(evt) {
+  _handleOverlayClose(evt) {
     if (
       evt.target.classList.contains('popup') ||
       evt.target.classList.contains('popup_opened')
@@ -21,19 +24,18 @@ export default class Popup {
   }
 
   open() {
-    this.#popupSelector.classList.add('popup_opened');
-    document.addEventListener('keyup', (evt) => this.#handleEscClose(evt));
+    this._popupSelector.classList.add('popup_opened');
+    document.addEventListener('keyup', this._handleEscClose);
   }
 
   close() {
-    this.#popupSelector.classList.remove('popup_opened');
-    document.removeEventListener('keyup', this.#handleEscClose);
-    this.#popupSelector.removeEventListener('click', this.#handleOverlayClose);
+    this._popupSelector.classList.remove('popup_opened');
+    document.removeEventListener('keyup', this._handleEscClose);
   }
 
   setEventListeners() {
-    const closeButton = this.#popupSelector.querySelector('.popup__close-button');
+    const closeButton = this._popupSelector.querySelector('.popup__close-button');
     closeButton.addEventListener('click', () => this.close());
-    this.#popupSelector.addEventListener('mousedown', (evt) => this.#handleOverlayClose(evt))
+    this._popupSelector.addEventListener('mousedown', (evt) => this._handleOverlayClose(evt))
   }
 }

@@ -21,10 +21,10 @@ export default class Card {
   // Удалить карточку
   #deleteCard() {
     this.#card.remove();
+    this.#card = null;
   }
 
   #setEventListeners() {
-    this.#card = this.#templateElement;
     const cardImg = this.#card.querySelector('.card__image');
     const cardLike = this.#card.querySelector('.card__like');
     const cardDeleteButton = this.#card.querySelector('.card__trash');

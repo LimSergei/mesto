@@ -8,4 +8,5 @@
 HTML Semantic Valid
 CSS Responsive Layout
 JavaScript Object-oriented programming
+
 Ссылка на проект: https://limsergei.github.io/mesto/

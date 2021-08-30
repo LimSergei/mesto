@@ -14,9 +14,9 @@
 
     <main class="main">
       <section class="main__profile profile">
-        <img src="<%=require('./images/image.jpg')%>" alt="Жак-Ив Кусто" class="profile__image">
-        <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <p class="profile__activity">Исследователь океана</p>
+        <img src="<%=require('./images/image.jpg')%>" alt="аватар" class="profile__image">
+        <h1 class="profile__name"></h1>
+        <p class="profile__activity"></p>
         <button class="profile__edit-button" type="button" aria-label="редактировать информацию о себе"></button>
         <button class="profile__add-button" type="button" aria-label="добавить">
         </button>
@@ -29,6 +29,7 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
 
+    <!-- Попап профиля -->
     <div class="popup popup_profile">
       <div class="popup__container">
         <button class="popup__close-button" type="button" aria-label="закрыть окно"></button>
@@ -46,7 +47,7 @@
         </form>
       </div>
     </div>
-
+    <!-- Попап новой карточки -->
     <div class="popup popup_card">
       <div class="popup__container">
         <button class="popup__close-button" type="button" aria-label="закрыть окно"></button>
@@ -64,7 +65,7 @@
         </form>
       </div>
     </div>
-
+    <!-- Попап картинки -->
     <section class="popup popup_fullscreen">
       <div class="fullscreen">
         <button class="popup__close-button" type="button" aria-label="закрыть окно"></button>
@@ -72,13 +73,16 @@
         <p class="fullscreen__name">photoname</p>
       </div>
     </section>
-
+    <!-- Элемент карточки -->
     <template id="card-template">
       <article class="card">
         <img src="#" alt="изображение" class="card__image">
         <div class="card__info">
           <h2 class="card__title"></h2>
-          <button class="card__like" type="button" aria-label="лайк"></button>
+          <div class="card__container">
+            <button class="card__like" type="button" aria-label="лайк"></button>
+            <span class="card__like-counter">0</span>
+          </div>
         </div>
         <button class="card__trash" type="button" aria-label="удалить"></button>
       </article>

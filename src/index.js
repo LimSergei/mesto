@@ -1,7 +1,7 @@
 import './pages/index.css';
 import Card from './scripts/components/Card.js';
 import FormValidator from './scripts/components/FormValidator.js';
-import { initialCards,
+import {
   config,
   cardPopup,
   cardButton,
@@ -11,21 +11,34 @@ import { initialCards,
   forms,
   formObject,
   profilePopup,
-  profileName,
-  profileActivity,
   editButton,
   profileNameInput,
   profileActivityInput,
+  profileConfig,
   } from './scripts/utils/constants.js';
 import Section from './scripts/components/Section.js';
 import PopupWithImage from './scripts/components/PopupWithImage.js';
 import PopupWithForm from './scripts/components/PopupWithForm.js';
 import UserInfo from './scripts/components/UserInfo.js';
+import Api from './scripts/components/Api';
+
+let cardList
+
+//Экземпляр редактирования профиля
+const userInfo = new UserInfo (profileConfig);
 
 //Экземпляр открытия попапа картинки
 const popupWithImage = new PopupWithImage (imgPopup);
 
-//Функция создания новой карточки + добавления в контейнер
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-27',
+  headers: {
+    authorization: 'd5adb4d7-c0ba-41c4-b99b-0eab8d669745',
+    'Content-Type': 'application/json'
+  }
+})
+
+//Функция создания новой карточки
 const createCard = (data) => {
   const card = new Card (data.name, data.link, templateSelector,
     {handleCardClick: () => {
@@ -33,48 +46,50 @@ const createCard = (data) => {
       }
     }
   )
-  cardList.addItem(card.generateCard());
+  return card.generateCard();
 }
 
-//Отрисовка дефолтных карточек
-const cardList = new Section( {
-  items: initialCards,
-  renderer: (data) => {
-    createCard(data);
-  }
-}, cardsContainer)
-
-cardList.renderItems();
+Promise.all([api.getUserData(), api.getInitialCards()])
+  .then(([user, cards]) => {
+    userInfo.setUserInfo(user);
+    cardList = new Section( {
+      items: cards,
+      renderer: (item) => {
+        const newCard = createCard(item);
+        cardList.addItem(newCard);
+      }
+    }
+      , cardsContainer);
+    cardList.renderItems();
+  })
+  .catch(err => console.log(err));
 
 //Экземпляр попапа формы новой карточки
 const popupAddForm = new PopupWithForm (cardPopup, {
-  submitHandler: (data) => {
-  createCard({name:data.placename, link: data.placelink});
-  popupAddForm.close();
-  },
-  resetHandler: () => {
-    formObject['createCardForm'].cleanFormError();
+  submitHandler: (input) => {
+  api.addNewCard(input['placename'], input['placelink'])
+  .then(data => {
+    cardList.addItem(createCard(data))
+    popupAddForm.close();
+  })
+  .catch(err => console.log(err));
   }
 });
 
 //Функция сброса и открытия попапа новой карточки
 const openAddPopup = () => {
-  popupAddForm.resetHandler();
   popupAddForm.open();
 }
 
-//Эксземпляр редактирования профиля
-const userInfo = new UserInfo ({profileName, profileActivity});
-
-//Экземпляр попапа формы редактирования профиля
+// Экземпляр попапа формы редактирования профиля
 const popupEditProfile = new PopupWithForm (profilePopup, {
   submitHandler: (input) => {
-    userInfo.setUserInfo(input);
-    popupEditProfile.resetHandler();
-    popupEditProfile.close();
-  },
-  resetHandler: () => {
-    formObject['profileForm'].cleanFormError();
+    api.setProfileInfo(input['fullname'], input['activity'])
+      .then(data => {
+        userInfo.setUserInfo(data)
+        popupEditProfile.close();
+      })
+      .catch(err => console.log(err));
   }
 });
 

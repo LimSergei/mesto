@@ -4,7 +4,7 @@ import FormValidator from './scripts/components/FormValidator.js';
 import {
   config,
   cardPopup,
-  cardButton,
+  cardAddButton,
   cardsContainer,
   imgPopup,
   templateSelector,
@@ -15,6 +15,7 @@ import {
   profileNameInput,
   profileActivityInput,
   profileConfig,
+  confirmPopup,
   } from './scripts/utils/constants.js';
 import Section from './scripts/components/Section.js';
 import PopupWithImage from './scripts/components/PopupWithImage.js';
@@ -30,6 +31,9 @@ const userInfo = new UserInfo (profileConfig);
 //Экземпляр открытия попапа картинки
 const popupWithImage = new PopupWithImage (imgPopup);
 
+//Экземпляр открытия попапа Confirm
+const popupConfirm = new PopupWithForm(confirmPopup);
+
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-27',
   headers: {
@@ -40,12 +44,27 @@ const api = new Api({
 
 //Функция создания новой карточки
 const createCard = (data) => {
-  const card = new Card (data.name, data.link, templateSelector,
-    {handleCardClick: () => {
-      popupWithImage.open(data.name, data.link);
-      }
-    }
-  )
+  data['userID'] = userInfo.getUserInfo()['id'];
+  const card = new Card (data, templateSelector,
+    () => popupWithImage.open(data),
+    (isLike) => {
+      const likeStatus = isLike ? api.deleteLike(data._id) : api.addLike(data._id);
+      likeStatus.then((res) => {
+        card.likeHandler(res.likes)
+      })
+      .catch(err => console.log(err));
+    },
+    () => {
+      popupConfirm.submitFormHandler(() => {
+        api.deleteCard(data._id)
+          .then(() => {
+              card.deleteCard();
+              popupConfirm.close();
+        })
+        .catch(err => console.log(err));
+      }),
+      popupConfirm.open();
+    })
   return card.generateCard();
 }
 
@@ -65,25 +84,20 @@ Promise.all([api.getUserData(), api.getInitialCards()])
   .catch(err => console.log(err));
 
 //Экземпляр попапа формы новой карточки
-const popupAddForm = new PopupWithForm (cardPopup, {
-  submitHandler: (input) => {
-  api.addNewCard(input['placename'], input['placelink'])
-  .then(data => {
-    cardList.addItem(createCard(data))
-    popupAddForm.close();
-  })
-  .catch(err => console.log(err));
-  }
-});
-
-//Функция сброса и открытия попапа новой карточки
-const openAddPopup = () => {
-  popupAddForm.open();
-}
+const popupAddForm = new PopupWithForm (cardPopup,
+  (input) => {
+    api.addNewCard(input['placename'], input['placelink'])
+      .then(data => {
+        cardList.addItem(createCard(data))
+        popupAddForm.close();
+      })
+      .catch(err => console.log(err));
+      }
+);
 
 // Экземпляр попапа формы редактирования профиля
-const popupEditProfile = new PopupWithForm (profilePopup, {
-  submitHandler: (input) => {
+const popupEditProfile = new PopupWithForm (profilePopup,
+  (input) => {
     api.setProfileInfo(input['fullname'], input['activity'])
       .then(data => {
         userInfo.setUserInfo(data)
@@ -91,7 +105,7 @@ const popupEditProfile = new PopupWithForm (profilePopup, {
       })
       .catch(err => console.log(err));
   }
-});
+);
 
 //Функция открытия попапа редактирования профиля
 const openEditProfilePopup = () => {
@@ -104,12 +118,22 @@ const openEditProfilePopup = () => {
 popupEditProfile.setEventListeners();
 popupAddForm.setEventListeners();
 popupWithImage.setEventListeners();
+popupConfirm.setEventListeners();
 
-editButton.addEventListener('click', openEditProfilePopup);
-cardButton.addEventListener('click', openAddPopup);
-
-//Валидация форм
+// Валидация форм
 forms.forEach(element =>{
-  formObject[element.name] = new FormValidator(element.form, config)
+  formObject[element.name] = new FormValidator(element, config)
   formObject[element.name].enableValidation();
 })
+
+//Слушатель открытия попапа редактирования профиля + очистка формы
+editButton.addEventListener('click', () => {
+  openEditProfilePopup();
+  formObject['profile-information'].cleanFormError();
+});
+
+//Слушатель открытия добавления карточки + очистка формы
+cardAddButton.addEventListener('click', () => {
+  popupAddForm.open();
+  formObject['place-information'].cleanFormError();
+});

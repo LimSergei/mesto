@@ -10,7 +10,7 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  justify-self: self-end;
+  justify-self: end;
 }
 
 @media (min-width: 920px) {

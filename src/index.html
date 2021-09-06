@@ -15,8 +15,8 @@
     <main class="main">
       <section class="main__profile profile">
         <img src="<%=require('./images/image.jpg')%>" alt="аватар" class="profile__image">
-        <h1 class="profile__name"></h1>
-        <p class="profile__activity"></p>
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <p class="profile__activity">Исследователь океана</p>
         <button class="profile__edit-button" type="button" aria-label="редактировать информацию о себе"></button>
         <button class="profile__add-button" type="button" aria-label="добавить">
         </button>
@@ -47,6 +47,7 @@
         </form>
       </div>
     </div>
+
     <!-- Попап новой карточки -->
     <div class="popup popup_card">
       <div class="popup__container">
@@ -65,6 +66,7 @@
         </form>
       </div>
     </div>
+
     <!-- Попап картинки -->
     <section class="popup popup_fullscreen">
       <div class="fullscreen">
@@ -73,6 +75,18 @@
         <p class="fullscreen__name">photoname</p>
       </div>
     </section>
+
+    <!-- Попап подтверждения удаления карточки -->
+    <section class="popup popup__confirm">
+      <div class="popup__container popup__container_confirm">
+        <button class="popup__close-button" type="button" aria-label="закрыть окно"></button>
+        <h2 class="popup__title">Вы уверены?</h2>
+        <form action="#" class="popup__form popup__form_confirm" name="delete-confirm" novalidate>
+          <button class="popup__form-button" type="submit">Да</button>
+        </form>
+      </div>
+    </section>
+
     <!-- Элемент карточки -->
     <template id="card-template">
       <article class="card">

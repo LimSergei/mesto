@@ -77,7 +77,7 @@
     </section>
 
     <!-- Попап подтверждения удаления карточки -->
-    <section class="popup popup__confirm">
+    <section class="popup popup_confirm">
       <div class="popup__container popup__container_confirm">
         <button class="popup__close-button" type="button" aria-label="закрыть окно"></button>
         <h2 class="popup__title">Вы уверены?</h2>
@@ -86,6 +86,22 @@
         </form>
       </div>
     </section>
+
+    <!-- Попап аватара -->
+    <div class="popup popup_avatar">
+      <div class="popup__container popup__container_avatar">
+        <button class="popup__close-button" type="button" aria-label="закрыть окно"></button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form action="#" class="popup__form" name="avatar-link" novalidate>
+          <label class="popup__form-field">
+            <input type="url" id="avatar-link" placeholder="Ссылка на аватар" class="popup__input popup__input_type_activity" name="avatar" value="" required>
+            <span class="avatar-link-error popup__input-error"></span>
+          </label>
+          <button class="popup__form-button" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
 
     <!-- Элемент карточки -->
     <template id="card-template">

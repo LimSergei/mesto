@@ -16,6 +16,8 @@ import {
   profileActivityInput,
   profileConfig,
   confirmPopup,
+  avatarPopup,
+  imgAvatar,
   } from './scripts/utils/constants.js';
 import Section from './scripts/components/Section.js';
 import PopupWithImage from './scripts/components/PopupWithImage.js';
@@ -86,9 +88,11 @@ Promise.all([api.getUserData(), api.getInitialCards()])
 //Экземпляр попапа формы новой карточки
 const popupAddForm = new PopupWithForm (cardPopup,
   (input) => {
+    popupAddForm.loading(true);
     api.addNewCard(input['placename'], input['placelink'])
       .then(data => {
         cardList.addItem(createCard(data))
+        popupAddForm.loading(false);
         popupAddForm.close();
       })
       .catch(err => console.log(err));
@@ -98,9 +102,11 @@ const popupAddForm = new PopupWithForm (cardPopup,
 // Экземпляр попапа формы редактирования профиля
 const popupEditProfile = new PopupWithForm (profilePopup,
   (input) => {
+    popupEditProfile.loading(true);
     api.setProfileInfo(input['fullname'], input['activity'])
       .then(data => {
         userInfo.setUserInfo(data)
+        popupEditProfile.loading(false);
         popupEditProfile.close();
       })
       .catch(err => console.log(err));
@@ -115,10 +121,25 @@ const openEditProfilePopup = () => {
   popupEditProfile.open();
 }
 
+//Экземпляр открытия попапа Avatar
+const popupAvatar = new PopupWithForm(avatarPopup,
+  (input) => {
+    popupAvatar.loading(true);
+    api.editAvatar(input['avatar'])
+      .then(data => {
+        userInfo.setUserInfo(data);
+        popupAvatar.loading(false);
+        popupAvatar.close();
+      })
+      .catch(err => console.log(err));
+  }
+  );
+
 popupEditProfile.setEventListeners();
 popupAddForm.setEventListeners();
 popupWithImage.setEventListeners();
 popupConfirm.setEventListeners();
+popupAvatar.setEventListeners();
 
 // Валидация форм
 forms.forEach(element =>{
@@ -137,3 +158,12 @@ cardAddButton.addEventListener('click', () => {
   popupAddForm.open();
   formObject['place-information'].cleanFormError();
 });
+
+//Слушатель открытия попапа "Аватар"
+imgAvatar.addEventListener('click', () => {
+  const avatarLink = userInfo.getUserInfo()['avatar'];
+  imgAvatar.src = avatarLink.src;
+
+  popupAvatar.open();
+  formObject['avatar-link'].cleanFormError();
+})

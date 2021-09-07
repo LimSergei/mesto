@@ -5,6 +5,11 @@
   margin: 0 auto;
   grid-area: image;
   object-fit: cover;
+  transition: opacity 0.5s ease-in;
+}
+
+.profile__image:hover {
+  opacity: 0.8;
 }
 
 @media (min-width: 920px) {

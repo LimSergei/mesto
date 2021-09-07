@@ -27,7 +27,7 @@ export const escKey = 'Escape';
 
 export const confirmPopup = document.querySelector('.popup_confirm');
 export const avatarPopup = document.querySelector('.popup_avatar');
-export const imgAvatar = document.querySelector('.profile__image');
+export const imgAvatar = document.querySelector('.profile__avatar-wrapper');
 
 export const forms = document.querySelectorAll(config['formSelector']);
 export const formObject = {};

@@ -14,12 +14,18 @@
 
     <main class="main">
       <section class="main__profile profile">
-        <img src="<%=require('./images/image.jpg')%>" alt="аватар" class="profile__image">
-        <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <p class="profile__activity">Исследователь океана</p>
-        <button class="profile__edit-button" type="button" aria-label="редактировать информацию о себе"></button>
-        <button class="profile__add-button" type="button" aria-label="добавить">
-        </button>
+        <div class="profile__avatar-wrapper">
+          <img src="<%=require('./images/image.jpg')%>" alt="аватар" class="profile__image">
+          <span class="profile__icon"></span>
+        </div>
+        <div class="profile__info-wrapper">
+          <div class="profile__caption-wrapper">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button class="profile__edit-button" type="button" aria-label="редактировать информацию о себе"></button>
+          </div>
+          <p class="profile__activity">Исследователь океана</p>
+        </div>
+        <button class="profile__add-button" type="button" aria-label="добавить"></button>
       </section>
 
       <section class="cards"></section>

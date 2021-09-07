@@ -1,21 +1,20 @@
 .profile__name {
-  max-width: 228px;
+  color: rgba(255, 255, 255, 1);
+  max-width: 200px;
   font-style: normal;
   font-weight: 500;
   font-size: 27px;
   line-height: 33px;
-  text-align: center;
-  margin: 26px 0 14px;
-  grid-area: name;
+  margin: 0px;
+  padding: 0px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  justify-self: end;
 }
 
-@media (min-width: 920px) {
+@media (min-width: 660px) {
   .profile__name {
-    max-width: 300px;
+    max-width: 270px;
     margin: 0 18px 0 0;
     align-self: self-end;
     justify-self: self-start;

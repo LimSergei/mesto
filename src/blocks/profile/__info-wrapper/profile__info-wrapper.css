@@ -1,0 +1,12 @@
+.profile__info-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  max-width: 100%;
+}
+
+@media (min-width: 660px) {
+  .profile__info-wrapper {
+    margin: 0 auto 0 30px;
+  }
+}

@@ -1,0 +1,35 @@
+.profile__avatar-wrapper {
+  margin: 0;
+  padding: 0;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  border-radius: 50%;
+  justify-self: flex-start;
+  flex-direction: row;
+  background: none;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+.profile__avatar-wrapper:hover .profile__icon {
+  opacity: 1;
+}
+
+.profile__avatar-wrapper:hover .profile__image {
+  opacity: .2;
+}
+
+.profile__avatar-wrapper:focus {
+  outline: none;
+}
+
+.profile__avatar-wrapper:focus .profile__icon {
+  opacity: 1;
+}
+
+.profile__avatar-wrapper:focus .profile__image {
+  opacity: .2;
+}

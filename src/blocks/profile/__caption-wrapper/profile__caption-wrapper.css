@@ -1,0 +1,12 @@
+.profile__caption-wrapper {
+  display: flex;
+  flex-direction: row;
+  place-items: baseline;
+  padding: 22px 0 14px;
+}
+
+@media (min-width: 660px) {
+  .profile__caption-wrapper{
+    padding-bottom: 16px;
+  }
+}

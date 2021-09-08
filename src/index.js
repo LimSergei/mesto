@@ -74,14 +74,14 @@ Promise.all([api.getUserData(), api.getInitialCards()])
   .then(([user, cards]) => {
     userInfo.setUserInfo(user);
     cardList = new Section( {
-      items: cards,
+      items: cards.reverse(),
       renderer: (item) => {
         const newCard = createCard(item);
         cardList.addItem(newCard);
       }
     }
       , cardsContainer);
-    cardList.renderItems();
+      cardList.renderItems();
   })
   .catch(err => console.log(err));
 
@@ -113,14 +113,6 @@ const popupEditProfile = new PopupWithForm (profilePopup,
   }
 );
 
-//Функция открытия попапа редактирования профиля
-const openEditProfilePopup = () => {
-  const profileInfo = userInfo.getUserInfo();
-  profileNameInput.value = profileInfo.name;
-  profileActivityInput.value = profileInfo.activity;
-  popupEditProfile.open();
-}
-
 //Экземпляр открытия попапа Avatar
 const popupAvatar = new PopupWithForm(avatarPopup,
   (input) => {
@@ -149,8 +141,11 @@ forms.forEach(element =>{
 
 //Слушатель открытия попапа редактирования профиля + очистка формы
 editButton.addEventListener('click', () => {
-  openEditProfilePopup();
+  const profileInfo = userInfo.getUserInfo();
   formObject['profile-information'].cleanFormError();
+  profileNameInput.value = profileInfo.name;
+  profileActivityInput.value = profileInfo.activity;
+  popupEditProfile.open();
 });
 
 //Слушатель открытия добавления карточки + очистка формы

@@ -17,14 +17,20 @@ export default class UserInfo {
   }
 
   setUserInfo(data) {
-    if(data.name) {
-      this._userName.textContent = data['name'];
-      this._userActivity.textContent = data['about'];
-      this._userAvatar.src = data['avatar'];
-      this._userId = data['_id']
+      if(data.name) {
+        this._userName.textContent = data['name'];
+    }
+      if(data.about) {
+        this._userActivity.textContent = data['about'];
+    }
+      if(data.avatar) {
+        this._userAvatar.src = data['avatar'];
+    }
+      if(data._id) {
+        this._userId = data['_id']
     }
     else {
-      console.log('Ошибка, данные были переданны не через аргументы')
+      console.log('Ошибка, данные не переданны через аргумент')
     }
   }
 }
